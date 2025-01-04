@@ -1,0 +1,39 @@
+import { defineConfig } from 'vite';
+import autoprefixer from "autoprefixer";
+import glslify from 'rollup-plugin-glslify';
+
+export default defineConfig({
+  base: "/",
+  root: "./src",
+  build: {
+		outDir: "../dist",
+    rollupOptions: {
+      output: {
+        assetFileNames: (assetInfo) => {
+          let extType = assetInfo.name.split('.')[1];
+          if (/ttf|otf|eot|woff|woff2/i.test(extType)) {
+						extType = "fonts";
+					}
+          if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(extType)) {
+            extType = 'images';
+          }
+          if(extType === 'css') {
+            return `assets/css/style.css`;
+          }
+          return `assets/${extType}/[name][extname]`;
+        },
+        chunkFileNames: 'assets/js/[name].js',
+        entryFileNames: 'assets/js/script.js',
+      },
+      input:{
+        main: './src/index.html',
+      }
+    },
+	},
+  css: {
+    postcss: {
+      plugins: [autoprefixer]
+    }
+  },
+  plugins: [glslify()]
+});
