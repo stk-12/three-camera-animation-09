@@ -17,6 +17,10 @@ class Main {
       height: window.innerHeight
     };
 
+    this.uniforms = {
+      uTime: { value: 0.0 }
+    };
+
     this.planeMappings = [
       { name: 'plane1', texture: 'image/1.jpg' },
       { name: 'plane2', texture: 'image/2.jpg' },
@@ -136,19 +140,21 @@ class Main {
       const plane = model.getObjectByName(mapping.name);
       if (plane) {
         const texture = this.textureLoader.load(mapping.texture, (tex) => {
-          this._applyTexture(tex, plane, 'cover');
+          this._applyTexture(tex, plane);
         });
       }
     });
   }
 
-  _applyTexture(texture, plane, mode = 'cover') {
+  _applyTexture(texture, plane) {
+
+    const planeUniforms = Object.assign({}, this.uniforms, {
+      uTex: { value: texture }
+    });
 
     // ShaderMaterialを設定
     const material = new THREE.ShaderMaterial({
-      uniforms: {
-        uTex: { value: texture }
-      },
+      uniforms: planeUniforms,
       vertexShader: vertexSource,
       fragmentShader: fragmentSource,
       transparent: true
@@ -205,6 +211,8 @@ class Main {
   _update(time) {
 
     this.lenis.raf(time);
+
+    this.uniforms.uTime.value = this.clock.getElapsedTime();
 
     //レンダリング
     this.renderer.render(this.scene, this.camera);

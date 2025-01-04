@@ -1,14 +1,13 @@
-@import"https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap";
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
 
 :root {
 }
 
 body {
-  font-family: Bebas Neue,cursive;
+  font-family: "Jost", serif;
   color: #fff;
   overflow-x: hidden;
-  // background: #f44336;
-  background: #f4b436;
+  background: #01121a;
 
   position: relative;
 }
@@ -66,7 +65,9 @@ canvas {
 }
 
 .ttl {
-  font-size: min(20vw, 32vh);
+  font-size: min(16vw, 28vh);
+  font-weight: 400;
+  text-transform: uppercase;
   line-height: 0.9;
   white-space: nowrap;
   opacity: 0;
@@ -83,4 +84,6 @@ canvas {
 
 h2 {
   font-size: 6vw;
+  font-weight: 400;
+  text-transform: uppercase;
 }
