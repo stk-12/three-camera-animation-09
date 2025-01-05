@@ -18,7 +18,8 @@ class Main {
     };
 
     this.uniforms = {
-      uTime: { value: 0.0 }
+      uTime: { value: 0.0 },
+      uScrollStrength: { value: 0.0 },
     };
 
     this.planeMappings = [
@@ -240,6 +241,16 @@ class Main {
   _addEvent() {
     window.addEventListener("resize", this._onResize.bind(this));
     window.addEventListener("beforeunload", this._scrollReset.bind(this));
+
+    window.addEventListener("scroll", () => {
+      const newScrollY = window.scrollY;
+      const scrollDelta = newScrollY - this.lastScrollY; // スクロールの変化量
+      this.lastScrollY = newScrollY;
+  
+      // スクロール強度を正規化（0～1の範囲に収める）
+      const scrollStrength = Math.min(Math.abs(scrollDelta) / 50, 1.0); // 50pxスクロールで1.0になる
+      this.uniforms.uScrollStrength.value = scrollStrength;
+    });
   }
 
   _addEventScroll() {

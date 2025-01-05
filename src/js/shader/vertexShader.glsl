@@ -7,7 +7,7 @@ uniform float uTime;
 
 #pragma glslify: pnoise = require(glsl-noise/periodic/3d);
 
-float PI = 3.1415926535897932384626433832795;
+// float PI = 3.1415926535897932384626433832795;
 
 void main() {
   vUv = uv;
