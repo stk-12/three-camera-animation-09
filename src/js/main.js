@@ -128,6 +128,8 @@ class Main {
 
       this.scene.add(model);
 
+      this._loadAnimation();
+
       this._onResize();
 
       this._update();
@@ -205,7 +207,7 @@ class Main {
   _init() {
     this._addModel();
 
-    this._loadAnimation();
+    // this._loadAnimation();
     this._scrollAnimation();
   }
 
