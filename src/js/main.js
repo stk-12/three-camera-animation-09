@@ -34,6 +34,7 @@ class Main {
     ];
 
     this.canvas = document.querySelector("#canvas");
+    this.loading = document.querySelector(".js-loader");
 
     this.renderer = new THREE.WebGLRenderer({
       canvas: this.canvas,
@@ -173,7 +174,11 @@ class Main {
     const tlLoadAnimation = gsap.timeline();
     tlLoadAnimation.to('.js-ttl', {
       opacity: 1,
-      delay: 0.3,
+      delay: 0.5,
+      onStart: () => {
+        this.canvas.classList.add('is-visible');
+        this.loading.classList.add('is-hidden');
+      },
     })
     .to('.js-ttl-txts', {
       y: 0,
